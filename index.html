@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testing with Manoona | ISTQB Security Tester Hub</title>
+    <link href="https://googleapis.com" rel="stylesheet">
+    <style>
+        
+        :root {
+            --bg-color: #f4f7f9;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --primary: #0ea5e9;
+            --primary-hover: #0284c7;
+            --accent: #10b981;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            --quiz-bg: #f8fafc;
+        }
+
+       
+        [data-theme="dark"] {
+            --bg-color: #0b1120;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary: #38bdf8;
+            --primary-hover: #0ea5e9;
+            --accent: #10b981;
+            --border-color: #334155;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+            --quiz-bg: #0f172a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.7;
+            padding-bottom: 50px;
+        }
+      
+        header {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 30px 20px;
+            text-align: center;
+            position: relative;
+            box-shadow: var(--shadow);
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--quiz-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+       
+        .profile-container {
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            padding: 4px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+             object-position: top;
+            background-color: var(--card-bg);
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+            color: var(--primary);
+        }
+
+        header p {
+            color: var(--text-muted);
+            max-width: 650px;
+            margin: 0 auto 20px;
+        }
+
+        
+        .progress-wrapper {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--quiz-bg);
+            padding: 12px 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 10px;
+            background: var(--border-color);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transition: width 0.4s ease;
+        }
+
+       
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .chapter-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .chapter-badge {
+            background: rgba(14, 165, 233, 0.15);
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .chapter-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+        }
+
+        .complete-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--accent);
+            background: rgba(16, 185, 129, 0.1);
+            padding: 6px 14px;
+            border-radius: 8px;
+        }
+
+        .chapter-summary {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-youtube { background-color: #ef4444; color: #ffffff; }
+        .btn-quiz { background-color: var(--primary); color: #ffffff; }
+     
+        .quiz-section {
+            display: none;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 2px dashed var(--border-color);
+        }
+
+        .quiz-section.active {
+            display: block;
+        }
+
+        .question-box {
+            background-color: var(--quiz-bg);
+            padding: 18px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            border: 1px solid var(--border-color);
+        }
+
+        .question-text {
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .btn-submit-quiz {
+            background-color: var(--accent);
+            color: white;
+            margin-top: 10px;
+        }
+
+        .quiz-result {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 700;
+            display: none;
+        }
+
+        .explanation {
+            margin-top: 10px;
+            font-size: 0.88rem;
+            display: none;
+            font-weight: 600;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    
+    <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">
+        <span id="themeIcon">🌙</span> <span id="themeText">Dark Mode</span>
+    </button>
+
+  
+    <div class="profile-container">
+        <img src="logo.jpeg" alt="Eng. Menna Tarek" class="profile-img">
+    </div>
+
+    <h1>Testing with Manoona | كورس ISTQB Security Tester</h1>
+    <p>المرجع العربي المتكامل لشرح شهادة المحترفين الدولية (CT-STE) — ملخصات هندسية، فيديوهات الشرح، واختبارات تطبيقية لكل فصل.</p>
+
+   
+    <div class="progress-wrapper">
+        <div class="progress-info">
+            <span>نسبة إنجازك في الكورس:</span>
+            <span id="progressPercent">0%</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progressBar"></div>
+        </div>
+    </div>
+</header>
+
+<main class="container" id="chaptersContainer"></main>
+
+<footer>
+    <p>تم التطوير بواسطة م. منة طارق (Manoona) — جميع الحقوق محفوظة © 2026</p>
+</footer>
+<script>
+  
+    const themeIcon = document.getElementById('themeIcon');
+    const themeText = document.getElementById('themeText');
+
+    function setTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        if (theme === 'dark') {
+            themeIcon.textContent = '☀️';
+            themeText.textContent = 'Light Mode ';
+        } else {
+            themeIcon.textContent = '🌙';
+            themeText.textContent = 'Dark Mode ';
+        }
+    }
+
+    function toggleTheme() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+    }
+
+    setTheme(localStorage.getItem('theme') || 'dark');
+
+    // 2. بيانات الشباتر 
+    const chaptersData = [
+                {
+            id: 1,
+            badge: "Chapter 1",
+            title: "The Basis of Security Testing (أساسيات اختبار الأمان)",
+            summary: "يستعرض هذا الفصل المفاهيم الجوهرية لأمن المعلومات، ومثلث الحماية الأساسي (CIA Triad)، والفروق الهندسية الدقيقة بين التهديد والثغرة والمخاطر. كما يوضح أهداف اختبار الأمان ودوره الحيوي في حماية الأصول البرمجية للمؤسسات.",
+            youtubeLink: "https://youtube.com/watch?v=yW9WlZzRV5c&si=aE4v5YM4FgaEAJMn", 
+                      questions: [
+                {
+                    q: "1. Which pillar of the CIA triad is directly compromised when an unauthorized attacker successfully reads confidential customer records?",
+                    options: ["Integrity", "Confidentiality", "Availability", "Non-repudiation"],
+                    answer: 1,
+                    explanation: "السرية (Confidentiality) تضمن حماية المعلومات الحساسة من الاطلاع أو الوصول غير المصرح به."
+                },
+                {
+                    q: "2. Which term best describes a weakness in the system design or source code that could be exploited by an attacker?",
+                    options: ["Threat", "Asset", "Vulnerability", "Risk"],
+                    answer: 2,
+                    explanation: "الثغرة (Vulnerability) هي نقطة الضعف الفعلية الموجودة في النظام والتي قد يستغلها المهاجم."
+                },
+                {
+                    q: "3. An attacker intercepts and modifies financial transaction amounts while in transit. Which security objective has been violated?",
+                    options: ["Availability", "Confidentiality", "Integrity", "Authentication"],
+                    answer: 2,
+                    explanation: "سلامة البيانات (Integrity) تضمن دقة البيانات وعدم تعرضها للتعديل أو التلاعب غير المصرح به."
+                },
+                {
+                    q: "4. What is the primary objective of a Distributed Denial of Service (DDoS) attack from a security perspective?",
+                    options: ["Stealing user credentials", "Disrupting Availability to prevent legitimate users from accessing the system", "Escalating administrator privileges", "Encrypting local hard drives"],
+                    answer: 1,
+                    explanation: "هجمات حجب الخدمة (DDoS) تستهدف إيقاف النظام وجعله غير متاح للاستخدام الطبيعي."
+                },
+                {
+                    q: "5. Which of the following is the most accurate example of a 'Threat' in information security?",
+                    options: ["A weak administrator password", "A malicious actor attempting to exploit an SQL Injection flaw", "An unpatched operating system", "A missing firewall rule"],
+                    answer: 1,
+                    explanation: "التهديد (Threat) هو العامل أو الحدث المحتمل (مثل المخترق) الذي يسعى لاستغلال الثغرة لإحداث ضرر."
+                },
+                {
+                    q: "6. How is a 'Security Risk' typically determined and evaluated?",
+                    options: ["Number of vulnerabilities divided by developers", "Likelihood of an exploit occurring multiplied by its potential Business/Technical Impact", "Cost of security testing tools only", "Total lines of source code"],
+                    answer: 1,
+                    explanation: "تُقاس المخاطر (Risk) بدمج احتمالية وقوع الاستغلال (Likelihood) مع حجم الأثر المتوقع (Impact)."
+                },
+                {
+                    q: "7. What is the key difference between Security Testing and Penetration Testing?",
+                    options: ["They are completely identical terms", "Security testing is a broader set of activities across the SDLC, whereas penetration testing simulates a real-world attack to exploit vulnerabilities", "Penetration testing is only performed on requirements documents", "Security testing only applies to network hardware"],
+                    answer: 1,
+                    explanation: "اختبار الأمان مفهوم شامل يغطي دورة الحياة كاملة، واختبار الاختراق هو إحدى تقنياته الهجومية لمحاكاة المهاجمين."
+                },
+                {
+                    q: "8. Which security principle ensures that a user cannot deny having performed a specific financial transaction or sent a message?",
+                    options: ["Confidentiality", "Non-repudiation", "Availability", "Authorization"],
+                    answer: 1,
+                    explanation: "مبدأ عدم الإنكار (Non-repudiation) يثبت هوية القائم بالإجراء عبر التوقيعات الرقمية والسجلات الموثقة."
+                },
+                {
+                    q: "9. Why is identifying 'Assets' a critical first step when planning security testing?",
+                    options: ["To determine the marketing budget", "To identify the most valuable data and components so testing efforts can be prioritized accordingly", "To calculate required internet bandwidth", "To select the UI color scheme"],
+                    answer: 1,
+                    explanation: "معرفة الأصول الحيوية تحدد ما يجب حمايته بأولوية قصوى بناءً على قيمته للمؤسسة."
+                },
+                {
+                    q: "10. Which statement accurately reflects the role of a Security Test Engineer (STE) regarding 'absolute security'?",
+                    options: ["The STE guarantees the system is 100% bug-free", "The STE helps reduce risks and provides objective evidence of security levels, as 100% security is practically impossible", "The STE writes all production code", "The STE prevents future system updates"],
+                    answer: 1,
+                    explanation: "الاختبار لا يثبت خلو النظام تماماً من الثغرات، بل يكشف نقاط الضعف لتقليل المخاطر إلى مستوى مقبول."
+                }
+            ]
+
+        },
+                {
+            id: 2,
+            badge: "Chapter 2",
+            title: "Security Testing Policies, Principles & Basic Concepts (السياسات والمبادئ والمفاهيم الأساسية)",
+            summary: "يركز هذا الفصل على دور سياسات الأمان المؤسسية في توجيه أنشطة الفحص، ومفاهيم المصادقة وتفويض الصلاحيات (Authentication & Authorization)، وآليات التشفير. كما يوضح مبادئ الدفاع المتعمق (Defense in Depth) وتقليل الصلاحيات لتقليص مساحة الهجوم.",
+            youtubeLink: "https://youtube.com/watch?v=CUd5IvgKUKs&si=tJENEzciNzC_6Gnv", 
+                       questions: [
+                {
+                    q: "1. What is the fundamental difference between Authentication and Authorization?",
+                    options: ["They are interchangeable terms", "Authentication verifies a user's identity, while Authorization determines what resources and actions the authenticated user is permitted to access", "Authorization always occurs before Authentication", "Authentication applies only to servers, while Authorization applies only to networks"],
+                    answer: 1,
+                    explanation: "المصادقة (Authentication) تتحقق من هوية المستخدم (من أنت؟)، بينما التفويض (Authorization) يحدد صلاحياته داخل النظام."
+                },
+                {
+                    q: "2. What does the 'Principle of Least Privilege' require in secure system design?",
+                    options: ["Granting administrator rights to all employees for convenience", "Granting users or processes only the minimum level of access rights necessary to perform their specific tasks", "Removing all password requirements on internal networks", "Allowing guest users to modify system configurations"],
+                    answer: 1,
+                    explanation: "مبدأ أقل الامتيازات يحد من حجم الضرر المحتمل في حال تم اختراق حساب أي مستخدم أو خدمة."
+                },
+                {
+                    q: "3. How does the 'Defense in Depth' strategy enhance application security?",
+                    options: ["By relying solely on a single, extremely strong perimeter firewall", "By implementing multiple, independent layers of security controls so that if one layer fails, subsequent layers still protect the assets", "By encrypting only the user interface", "By shutting down the system overnight"],
+                    answer: 1,
+                    explanation: "تعدد طبقات الحماية المستقلة يضمن عدم سقوط النظام بالكامل عند نجاح المهاجم في تجاوز طبقة واحدة."
+                },
+                {
+                    q: "4. Which type of cryptography uses a Public Key for encryption and a mathematically related Private Key for decryption?",
+                    options: ["Symmetric Encryption", "Asymmetric Encryption", "Cryptographic Hashing", "Base64 Encoding"],
+                    answer: 1,
+                    explanation: "التشفير غير المتماثل (Asymmetric) يعتمد على زوج من المفاتيح (عام وخاص) لضمان السرية وتبادل البيانات بأمان."
+                },
+                {
+                    q: "5. Why should Cryptographic Hashing be combined with a unique 'Salt' when storing user passwords?",
+                    options: ["To speed up the login process", "To ensure identical passwords produce different hash outputs, effectively preventing Rainbow Table attacks", "To allow administrators to recover plaintext passwords", "To reduce database storage size"],
+                    answer: 1,
+                    explanation: "إضافة قيمة عشوائية (Salt) قبل التجزئة تجعل كل بصمة فريدة وتُفشل هجمات الجداول المحسوبة مسبقاً (Rainbow Tables)."
+                },
+                {
+                    q: "6. What happens when a system adheres to the 'Fail-Safe Defaults' principle upon encountering an unexpected error?",
+                    options: ["It grants open access to prevent user frustration", "It defaults to denying access and terminates the session securely without exposing sensitive technical details", "It disables logging mechanisms", "It automatically resets all user passwords"],
+                    answer: 1,
+                    explanation: "الفشل الآمن يفرض أن يكون الوضع الافتراضي عند حدوث خلل هو 'المنع' (Deny) لحماية النظام من الاستغلال."
+                },
+                {
+                    q: "7. How does an organization's 'Information Security Policy' serve the Security Test Engineer (STE)?",
+                    options: ["It defines developer salaries", "It acts as a key Test Basis from which security test conditions and cases are derived to verify organizational compliance", "It is only reviewed after a security breach", "It applies exclusively to HR personnel"],
+                    answer: 1,
+                    explanation: "السياسة الأمنية تمثل المرجع الأساسي الذي يشتق منه مهندس الأمان حالات الاختبار للتحقق من التزام النظام بقواعد المؤسسة."
+                },
+                {
+                    q: "8. Which authentication mechanism provides the strongest protection against credential theft and account takeover?",
+                    options: ["A 6-digit numeric password", "Multi-Factor Authentication (MFA) combining something you know with something you have or are", "Using the username as the password", "Infinite session timeouts"],
+                    answer: 1,
+                    explanation: "المصادقة متعددة العوامل (MFA) تمنع المهاجم من الدخول حتى لو تمكن من سرقة كلمة المرور."
+                },
+                {
+                    q: "9. What is meant by the 'Attack Surface' of a software system?",
+                    options: ["The physical dimensions of the server rack", "The sum of all entry points, interfaces, ports, and inputs where an unauthorized user can attempt to enter or extract data", "The number of developers on the team", "The database query execution speed"],
+                    answer: 1,
+                    explanation: "كل منفذ مفتوح أو واجهة برمجية (API) أو حقل إدخال يوسع من مساحة الهجوم المعرضة للاستغلال."
+                },
+                {
+                    q: "10. Which principle warns against relying on hiding the internal design or implementation details as the primary security control?",
+                    options: ["Security by Design", "Security through Obscurity is insufficient", "Defense in Depth", "Separation of Duties"],
+                    answer: 1,
+                    explanation: "الأمان عبر الغموض (Security through Obscurity) ليس حماية حقيقية؛ فبمجرد اكتشاف المهاجم لآلية العمل ينهار النظام."
+                }
+            ]
+
+        },
+                {
+            id: 3,
+            badge: "Chapter 3",
+            title: "Security Testing Process (عملية اختبار الأمان)",
+            summary: "يوضح هذا الفصل مراحل عملية اختبار الأمان المتكاملة، بدءاً من تحليل المخاطر وتخطيط الاختبارات، مروراً بتصميم وتنفيذ حالات الاختبار الأمنية. كما يركز على دمج أنشطة الفحص المبكر (Shift Left) وتوثيق النتائج ومتابعة إغلاق الثغرات بفاعلية.",
+            youtubeLink: "https://youtube.com/watch?v=A3V1OtR0nTw&si=VmFMDNNplFNNp-PS", 
+            questions: [
+                {
+                    q: "1. What is the primary benefit of applying the 'Shift Left' approach to security testing?",
+                    options: ["Postponing all security checks until after production release", "Identifying and resolving design flaws and vulnerabilities early in the SDLC when remediation is significantly cheaper and easier", "Reducing the number of testers on the project", "Eliminating the need for dynamic testing"],
+                    answer: 1,
+                    explanation: "اكتشاف الثغرات في مراحل التحليل والتصميم المبكرة يوفر تكلفة وجهد الإصلاح مقارنة باكتشافها بعد البرمجة."
+                },
+                {
+                    q: "2. Which activity serves as the foundational step for planning and prioritizing security testing efforts?",
+                    options: ["Purchasing expensive commercial scanners", "Identifying critical assets and conducting a Security Risk Analysis", "Writing final test summary reports", "Upgrading network cables"],
+                    answer: 1,
+                    explanation: "تحليل المخاطر يحدد المناطق الأكثر عرضة للخطر والأعلى تأثيراً لتوجيه جهود الاختبار نحوها بأولوية قصوى."
+                },
+                {
+                    q: "3. What is the main focus of the STE during the 'Security Test Analysis and Design' phase?",
+                    options: ["Upgrading production servers", "Defining security test conditions and designing specific attack scenarios and test cases", "Training sales representatives", "Approving the annual IT budget"],
+                    answer: 1,
+                    explanation: "في هذه المرحلة يتم تحويل المتطلبات والمخاطر الأمنية إلى شروط وحالات اختبار قابلة للتنفيذ الفعلي."
+                },
+                {
+                    q: "4. Why is obtaining formal 'Written Authorization' mandatory before executing offensive security tests (e.g., penetration testing)?",
+                    options: ["To increase internet bandwidth", "To legally protect the STE and clearly define the permitted scope and boundaries of testing", "To notify external hackers of the test schedule", "To simplify source code compilation"],
+                    answer: 1,
+                    explanation: "اختبار الاختراق يحاكي هجمات حقيقية، وبدون تفويض كتابي رسمي يُعد تجاوزاً قانونياً يعرض المهندس للمساءلة."
+                },
+                {
+                    q: "5. What is the primary purpose of establishing a 'Dedicated Test Environment' for security testing?",
+                    options: ["To provide extra file storage for employees", "To isolate potentially destructive security tests (such as DoS) so they do not disrupt or corrupt the live production system", "To reduce the number of test cases executed", "To hide test results from management"],
+                    answer: 1,
+                    explanation: "عزل بيئة الاختبار يحمي البيانات الحقيقية واستقرار النظام الإنتاجي من أي أضرار ناتجة عن الاختبارات الهجومية."
+                },
+                {
+                    q: "6. How do 'Security Test Conditions' differ from traditional functional test conditions?",
+                    options: ["There is no difference", "They focus on negative scenarios—verifying what the system must NOT allow and how it resists malicious misuse", "They only verify UI font colors", "They are written exclusively in assembly language"],
+                    answer: 1,
+                    explanation: "اختبار الأمان يركز على السيناريوهات السلبية ومقاومة محاولات الاختراق وليس فقط عمل الوظائف بشكل طبيعي."
+                },
+                {
+                    q: "7. Which of the following is a critical output of the 'Security Test Execution' phase?",
+                    options: ["The company's HR policy", "Detailed Test Logs and documented Evidence proving how vulnerabilities were exploited", "The initial project charter", "Developer employment contracts"],
+                    answer: 1,
+                    explanation: "توثيق السجلات والأدلة أثناء التنفيذ ضروري لإثبات الثغرة وتمكين المطورين من إعادة إنتاجها وإصلاحها."
+                },
+                {
+                    q: "8. When is the security testing process formally considered complete for a release?",
+                    options: ["After running an automated scanner once", "When predefined Exit Criteria are met and residual security risks are reduced to an acceptable level", "At the end of the workday", "Immediately after finding the first vulnerability"],
+                    answer: 1,
+                    explanation: "تحقيق معايير الخروج (مثل إغلاق الثغرات الحرجة وتنفيذ الاختبارات التراجعية) هو ما يحدد اكتمال الفحص."
+                },
+                {
+                    q: "9. What is a key responsibility of the STE during the 'Test Closure' phase?",
+                    options: ["Deleting all vulnerability reports permanently", "Securely archiving sensitive test evidence, documenting lessons learned, and evaluating test process effectiveness", "Disabling production firewalls", "Sharing admin credentials with the team"],
+                    answer: 1,
+                    explanation: "مرحلة الإغلاق تضمن أرشفة التقارير الحساسة بأمان واستخلاص الدروس المستفادة لتحسين العمليات المستقبلية."
+                },
+                {
+                    q: "10. Why must 'System Architecture' be reviewed as part of the security testing process?",
+                    options: ["To evaluate graphic design aesthetics", "To uncover structural weaknesses (such as unencrypted communication channels between tiers) before coding begins", "To count the total number of web pages", "To select UI button shapes"],
+                    answer: 1,
+                    explanation: "مراجعة البنية المعمارية تكشف العيوب التصميمية الجوهرية مبكراً قبل أن تصبح مكلفة جداً في الإصلاح."
+                }
+            ]
+
+        },
+                {
+            id: 4,
+            badge: "Chapter 4",
+            title: "Security Testing throughout the Software Lifecycle (اختبار الأمان خلال دورة حياة البرمجيات)",
+            summary: "يستعرض هذا الفصل كيفية دمج أنشطة الفحص والتحقق الأمني في كل مرحلة من مراحل دورة حياة البرمجيات (SDLC)، بدءاً من مراجعة المتطلبات والتصميم المعماري، مروراً بمراجعة الكود المصدري واختبار المكونات والتكامل، وصولاً إلى فحص النظام الكامل واختبارات القبول.",
+            youtubeLink: "https://youtube.com/watch?v=FPBZllki5nQ&si=dawpIif3NaqvXeDi", 
+                       questions: [
+                {
+                    q: "1. What is the primary objective of conducting a 'Security Requirements Review' early in the project?",
+                    options: ["To measure server response time", "To ensure security requirements are clear, complete, testable, and free of contradictions before design begins", "To write final encryption algorithms", "To train end-users on system navigation"],
+                    answer: 1,
+                    explanation: "مراجعة المتطلبات مبكراً تمنع بناء النظام على أسس أمنية غامضة أو غير قابلة للاختبار والتحقق."
+                },
+                {
+                    q: "2. Which engineering technique is applied during the 'Design Phase' to identify potential attackers and architectural weaknesses?",
+                    options: ["Regression Testing", "Threat Modeling", "Port Scanning", "Session Management"],
+                    answer: 1,
+                    explanation: "نمذجة التهديدات (Threat Modeling) تحلل تصميم النظام لتوقع مسارات الهجوم وبناء الدفاعات قبل كتابة الكود."
+                },
+                {
+                    q: "3. What is the primary focus of the Security Test Engineer during the 'Coding Phase'?",
+                    options: ["Monitoring live production network traffic", "Conducting Secure Code Reviews and running static analysis tools to detect coding vulnerabilities", "Performing user acceptance testing with clients", "Updating physical perimeter firewalls"],
+                    answer: 1,
+                    explanation: "في مرحلة التطوير يتم فحص الكود المصدري للتأكد من التزامه بمعايير البرمجة الآمنة وخلوه من ثغرات الحقن."
+                },
+                {
+                    q: "4. Why is 'Security Integration Testing' critical even if individual software components pass security checks in isolation?",
+                    options: ["To reduce total lines of code", "Because vulnerabilities often emerge when components interact or exchange tokens and privileges across APIs", "To verify UI color contrast", "To calculate server power consumption"],
+                    answer: 1,
+                    explanation: "قد تكون كل وحدة آمنة منفردة، لكن ربطها معاً قد يكشف ثغرات في تمرير التوكن أو الصلاحيات بين الطبقات."
+                },
+                {
+                    q: "5. What is the main focus of 'Security System Testing'?",
+                    options: ["Testing a single isolated function", "Testing the entire integrated system in a production-like environment to verify resilience against end-to-end attack scenarios", "Reviewing developer resumes", "Cleaning up hard drive partitions"],
+                    answer: 1,
+                    explanation: "اختبار النظام يقيم الوضع الأمني للمنظومة بالكامل بكافة إعداداتها وخدماتها المترابطة في بيئة تحاكي الإنتاج."
+                },
+                {
+                    q: "6. What is the goal of 'Security Acceptance Testing' prior to system deployment?",
+                    options: ["To intentionally delay the release date", "To verify that the system meets all security acceptance criteria, legal obligations, and regulatory standards before going live", "To add unrequested new features", "To delete existing user accounts"],
+                    answer: 1,
+                    explanation: "اختبار القبول يضمن للإدارة وأصحاب المصلحة أن النظام آمن ومطابق للمعايير وجاهز للتشغيل الفعلي."
+                },
+                {
+                    q: "7. Which of the following is an example of a security flaw typically uncovered during an 'Architectural Design Review'?",
+                    options: ["A minor typo in a welcome message", "Storing sensitive user passwords or credit card data in plaintext without encryption", "Slow image loading on the homepage", "Misaligned button borders"],
+                    answer: 1,
+                    explanation: "قرارات التشفير وحماية البيانات الحساسة هي قرارات معمارية تُحسم وتُفحص في مرحلة التصميم."
+                },
+                {
+                    q: "8. How does 'Component Security Testing' strengthen overall software security?",
+                    options: ["By scanning external network routers only", "By verifying that individual software modules safely sanitize and handle malicious inputs without bypassing logic", "By shutting down database servers", "By changing the host operating system"],
+                    answer: 1,
+                    explanation: "فحص المكونات يضمن تحصين الوحدات البرمجية الصغيرة (مثل دوال التحقق من المدخلات) منذ لحظة بنائها."
+                },
+                {
+                    q: "9. When should 'Security Test Cases' be updated throughout the software lifecycle?",
+                    options: ["Once every five years", "Continuously throughout the lifecycle whenever requirements change, designs evolve, or new threats emerge", "Only after the project is terminated", "Only when the project manager changes"],
+                    answer: 1,
+                    explanation: "التهديدات والمتطلبات تتطور باستمرار، لذا يجب تحديث حالات الاختبار لتواكب أي تغيير في النظام."
+                },
+                {
+                    q: "10. Which statement best summarizes the philosophy of security testing throughout the SDLC?",
+                    options: ["Security is a final gate performed one day before release", "Security is a continuous activity integrated into every SDLC phase to build security from the ground up", "Security is solely the network team's responsibility", "Security testing is unnecessary if senior developers write the code"],
+                    answer: 1,
+                    explanation: "الدمج المستمر للأمان في كافة مراحل الـ SDLC هو الضمان الحقيقي لبناء برمجيات محصنة من الجذور."
+                }
+            ]
+
+        },
+                {
+            id: 5,
+            badge: "Chapter 5",
+            title: "Adjusting Security Testing to the Organizational Context (مواءمة اختبار الأمان مع السياق التنظيمي)",
+            summary: "يوضح هذا الفصل تأثير الهياكل التنظيمية (Functional, Divisional, Matrix) وثقافة المؤسسة على تنفيذ اختبارات الأمان، وأهمية الالتزام باللوائح الدولية (مثل HIPAA و PCI-DSS). كما يستعرض خطوات المهاجمين لتثبيت الوصول (Rootkits) ومراحل الاستجابة للحوادث الأمنية وفق معيار NIST.",
+            youtubeLink: "https://youtube.com/watch?v=tnZk0ARqIGQ&si=auUAMxUll9AHRLDn",
+                       questions: [
+                {
+                    q: "1. In which organizational structure is an STE most likely to face conflicting security decisions because employees report to both a functional manager and a product manager?",
+                    options: ["Functional Structure", "Divisional Structure", "Matrix Structure", "Flat Structure"],
+                    answer: 2,
+                    explanation: "الهيكل الشبكي (Matrix) يسبب تداخل الصلاحيات وتضارب القرارات الأمنية بسبب تعدد القيادات للموظف الواحد."
+                },
+                {
+                    q: "2. What is a major security vulnerability associated with a traditional 'Functional Structure' due to isolated departments (Silos)?",
+                    options: ["High server hardware costs", "Increased susceptibility to Social Engineering attacks and delayed incident response due to poor cross-departmental communication", "Absence of a sales department", "Excessive network bandwidth"],
+                    answer: 1,
+                    explanation: "انعزال الأقسام يجعل الموظفين عرضة لانتحال الشخصية ويؤخر تبادل المعلومات الحرجة عند وقوع اختراق."
+                },
+                {
+                    q: "3. What is the primary security risk when an organization utilizes external 'Outsourcing' development teams?",
+                    options: ["Differences in spoken languages", "Granting remote network access (e.g., VPN tokens) expands the attack surface if the vendor's environment is compromised", "Faster internet speeds at the vendor's office", "Elimination of security testing requirements"],
+                    answer: 1,
+                    explanation: "منح أطراف خارجية وصولاً للشبكة الداخلية يخلق ثغرة محتملة إذا لم يتم تأمين ومراقبة صلاحياتهم بدقة."
+                },
+                {
+                    q: "4. Which international regulation must an STE verify compliance with if the software application handles medical records in healthcare institutions?",
+                    options: ["PCI-DSS", "HIPAA (Health Insurance Portability and Accountability Act)", "WTO Trade Rules", "ISO 26262 Automotive Standard"],
+                    answer: 1,
+                    explanation: "قانون HIPAA يفرض ضوابط صارمة لحماية سرية وخصوصية البيانات الصحية والطبية للمرضى."
+                },
+                {
+                    q: "5. What is the primary function of a 'Rootkit' deployed by an attacker during the 'Maintaining Access' phase?",
+                    options: ["Optimizing CPU performance", "Concealing itself and other malicious tools while ensuring persistent access even after a system reboot", "Removing existing malware from the host", "Encrypting outbound marketing emails"],
+                    answer: 1,
+                    explanation: "الـ Rootkit يعمل على مستوى عميق في النظام لإخفاء وجود المهاجم وأدوات التجسس بشكل دائم حتى بعد إعادة التشغيل."
+                },
+                {
+                    q: "6. What critical forensic step must be taken before disconnecting power from a compromised server during the 'Containment' phase?",
+                    options: ["Immediately formatting the hard drive", "Capturing volatile memory (RAM) contents, as crucial forensic evidence disappears once power is lost", "Rebooting the operating system", "Deleting all system log files"],
+                    answer: 1,
+                    explanation: "الذاكرة العشوائية (RAM) تحتوي على العمليات النشطة ومفاتيح التشفير واتصالات المهاجم التي تُفقد بمجرد فصل الكهرباء."
+                },
+                {
+                    q: "7. What is the correct sequence of the four core objectives in 'Incident Response'?",
+                    options: ["Recover, Eradicate, Contain, Identify", "Identify, Contain, Eradicate, and Recover", "Contain, Recover, Identify, Destroy", "Eradicate, Identify, Plan, Deploy"],
+                    answer: 1,
+                    explanation: "تبدأ الاستجابة باكتشاف الحادث (Identify)، ثم عزله (Contain)، ثم استئصاله وتطهيره (Eradicate)، وأخيراً التعافي (Recover)."
+                },
+                {
+                    q: "8. Which term describes cyberattacks that compromise third-party vendors or Commercial Off-The-Shelf (COTS) libraries to infiltrate target organizations?",
+                    options: ["Vishing Attacks", "Supply Chain Attacks", "Brute Force Attacks", "Denial of Service Attacks"],
+                    answer: 1,
+                    explanation: "هجمات سلاسل الإمداد (Supply Chain) تستغل الثقة في الموردين والمكتبات الخارجية لتمرير أكواد خبيثة للمؤسسات."
+                },
+                {
+                    q: "9. Why is establishing a 'Single Point of Contact' vital for an organization's information security process?",
+                    options: ["To reduce total headcount", "To centralize vulnerability and incident reporting, preventing confusion and accelerating response times", "To block communication between departments", "To distribute shared passwords"],
+                    answer: 1,
+                    explanation: "وجود قناة اتصال واحدة واضحة للإبلاغ يسرّع عملية الاستجابة للحوادث ويمنع تشتت المعلومات الحرجة."
+                },
+                {
+                    q: "10. Which activity is an essential part of 'Post-Incident Activity' to prevent similar breaches in the future?",
+                    options: ["Hiding incident details from executive management", "Conducting digital forensics, patching vulnerabilities, training employees, and updating security policies", "Disabling Intrusion Detection Systems (IDS)", "Canceling disaster recovery plans"],
+                    answer: 1,
+                    explanation: "التحقيق الجنائي وسد الثغرات وتوعية الموظفين وتحديث السياسات هي جوهر مرحلة ما بعد الحادث لتحصين المؤسسة."
+                }
+            ]
+
+        },
+                {
+            id: 6,
+            badge: "Chapter 6",
+            title: "Adjusting Security Testing to SDLC Models (مواءمة اختبار الأمان مع نماذج التطوير)",
+            summary: "يستعرض هذا الفصل كيفية تكييف اختبارات الأمان مع نماذج التطوير المتتابعة (Waterfall/V-Model)، والمرنة (Agile)، وبيئات الـ DevSecOps وخطوط الـ CI/CD السريعة. كما يوضح أهمية اختبارات الأمان التراجعية (Security Regression) واختبارات التأكيد أثناء مرحلة التشغيل والصيانة.",
+            youtubeLink: "https://youtube.com/watch?v=Nu8j-9YH7aU&si=QJcdkKh-QruYwx2M",
+                      questions: [
+                {
+                    q: "1. What is a major security challenge in Sequential Development Models (like Waterfall) when new threats emerge mid-project?",
+                    options: ["Lack of initial documentation", "Rigid early specifications; security tests may look complete against old requirements but fail to address late-emerging threats", "Excessive speed of test execution", "Absence of a development team"],
+                    answer: 1,
+                    explanation: "تحديد المتطلبات مبكراً وعدم تحديثها بمرونة يجعل اختبارات الأمان المتأخرة قاصرة عن تغطية المخاطر المستجدة."
+                },
+                {
+                    q: "2. How does a smaller 'Deployment Size' impact the Security Test Engineer's (STE) testing approach?",
+                    options: ["It makes locating vulnerabilities much harder", "It allows the STE to focus security testing more specifically and deeply on the single feature being deployed", "It eliminates the need for any security testing", "It drastically expands the attack surface in a single iteration"],
+                    answer: 1,
+                    explanation: "كلما صغر حجم التحديث (ميزة واحدة مثلاً)، أصبح من السهل توجيه وتركيز الفحص الأمني عليها بدقة عالية."
+                },
+                {
+                    q: "3. Which Agile security principle (defined by Synopsys) advocates empowering the team with security tools rather than waiting for external experts?",
+                    options: ["Mitigating risks over fixing defects", "Developers and testers over security specialists", "Implementing features securely over adding security features", "Securing as you work over securing after you are done"],
+                    answer: 1,
+                    explanation: "ندرة متخصصي الأمان تحتم تمكين المطورين والمختبرين داخل الفريق من مسؤولية الأمان اليومية."
+                },
+                {
+                    q: "4. Why is repeating 'Automated Security Tests' essential in Agile software development?",
+                    options: ["Because no new code is ever written", "Because growing, changing, or deleted functionality in each sprint creates an unstable test basis", "To reduce the total number of sprints", "To replace manual exploratory testing completely"],
+                    answer: 1,
+                    explanation: "التغيير المستمر في الكود قد يضرب تحصينات قديمة، لذا تضمن الأتمتة اكتشاف أي انتكاسة أمنية فوراً."
+                },
+                {
+                    q: "5. How do security objectives differ between Development and Operations within a 'DevSecOps' methodology?",
+                    options: ["There is no difference", "Development focuses on identifying and preventing vulnerabilities (Shift Left), while Operations focuses on continuous monitoring and defending against attacks", "Development focuses solely on network firewalls", "Operations focuses solely on writing source code"],
+                    answer: 1,
+                    explanation: "الـ DevSecOps يدمج الوقاية المبكرة أثناء البناء مع الرصد والدفاع المستمر أثناء التشغيل الفعلي."
+                },
+                {
+                    q: "6. Which DevOps branching strategy develops and tests changes in a short-lived branch before deploying directly into production upon approval?",
+                    options: ["Feature-based development", "Trunk-based development", "Waterfall branching", "Manual release batching"],
+                    answer: 1,
+                    explanation: "التطوير القائم على الجذع (Trunk-based) يعتمد على فروع قصيرة جداً ودمج سريع ومباشر للإنتاج."
+                },
+                {
+                    q: "7. Which three practices from 'The Phoenix Project' must be applied to security testing for a successful DevOps implementation?",
+                    options: ["Delaying tests, increasing meetings, and isolating teams", "Creating a flow of tasks, ensuring instant feedback, and encouraging a DevOps security culture", "Stopping automation, relying on manual checks, and minimizing documentation", "Restricting security responsibilities to the project manager"],
+                    answer: 1,
+                    explanation: "تفتيت المهام لضمان انسيابها وسرعة نتائجها مع بناء ثقافة شفافية مشتركة هو سر نجاح DevSecOps."
+                },
+                {
+                    q: "8. Which type of system enhancements during maintenance are historically most prone to negatively impacting existing security controls?",
+                    options: ["Updating copyright dates", "Enhancements to Usability or Performance Efficiency", "Adding code comments", "Translating user manuals"],
+                    answer: 1,
+                    explanation: "تسهيل تجربة المستخدم أو تسريع النظام قد يدفع المطورين لتجاوز خطوات تحقق أمنية، مما يفتح ثغرات خطيرة."
+                },
+                {
+                    q: "9. Why are 'End-to-End Regression Testing Scenarios' preferred over testing individual functions during security maintenance?",
+                    options: ["They are faster to write", "Because security regression defects often emerge only when multiple components interact across a complete transaction", "They do not require a test environment", "They eliminate the need for source code analysis"],
+                    answer: 1,
+                    explanation: "فحص رحلة المستخدم والمعاملة بالكامل يضمن سلامة ضوابط الأمان عبر كافة المكونات المترابطة."
+                },
+                {
+                    q: "10. Which maintenance category involves modifying the system to adjust to changes in the operating environment (e.g., OS or database upgrades)?",
+                    options: ["Corrective maintenance", "Adaptive maintenance", "Perfective maintenance", "Preventive maintenance"],
+                    answer: 1,
+                    explanation: "الصيانة التكيفية (Adaptive) تركز على ملاءمة النظام للتغيرات الخارجية في بيئة التشغيل المحيطة."
+                }
+            ]
+
+        },
+                {
+            id: 7,
+            badge: "Chapter 7",
+            title: "Input for an Information Security Management System (ISMS) (مدخلات نظام إدارة أمن المعلومات)",
+            summary: "يستعرض هذا الفصل دور نتائج اختبارات الأمان في دعم وتطوير نظام إدارة أمن المعلومات (ISO 27001) عبر دورة التحسين المستمر (PDCA). كما يوضح كيفية توسيع نطاق الفحص وقياس فعالية السياسات الأمنية والتدريب باستخدام مؤشرات الأداء الرئيسية (KPIs).",
+            youtubeLink: "https://youtube.com/watch?v=dg8WyuzMxZc&si=VaymDL-RWKX3fI7e",
+                       questions: [
+                {
+                    q: "1. What is the key difference between performing security testing as a 'One-off Ad-hoc Activity' versus a 'Continuous Systematic Process'?",
+                    options: ["There is no difference", "One-off testing occurs once before release, whereas a continuous systematic process provides ongoing, reliable evidence of security risks throughout the lifecycle", "One-off testing applies to networks while continuous applies to databases", "Continuous testing is only used in small startups"],
+                    answer: 1,
+                    explanation: "الاختبار المستمر والمنظم يواكب التغييرات ويقدم صورة دقيقة وموثوقة لمستوى الأمان مقارنة بالفحص العشوائي لمرة واحدة."
+                },
+                {
+                    q: "2. Which two major problems arise when security testing begins without clearly defined 'Acceptance Criteria'?",
+                    options: ["Faster server speeds and lower costs", "Questionable suitability of test techniques and unclear or insufficient test coverage", "Automatic internet disconnection", "Accidental database deletion"],
+                    answer: 1,
+                    explanation: "غياب معايير القبول يجعل اختيار التقنيات وقياس مدى كفاية الفحص أمراً عشوائياً وغير قابل للحكم الموضوعي."
+                },
+                {
+                    q: "3. Which statement accurately describes the relationship between 'executing security tests' and 'improving system security'?",
+                    options: ["Running a scanner automatically makes the software secure", "Testing provides objective information about security levels, while analyzing results and taking corrective actions drives actual improvement", "Issuing a test report ends all security responsibilities", "Testing eliminates the need for security policies"],
+                    answer: 1,
+                    explanation: "الاختبار أداة قياس وتشخيص؛ أما التحسين الحقيقي فينبع من استغلال نتائجه في إصلاح الثغرات وتطوير الإجراءات."
+                },
+                {
+                    q: "4. In which phase of the 'PDCA Cycle' does security testing provide primary objective evidence to evaluate if security goals were met?",
+                    options: ["Plan", "Do", "Check", "Act"],
+                    answer: 2,
+                    explanation: "في مرحلة الفحص (Check) يتم قياس ومقارنة النتائج الفعلية لاختبارات الأمان مع الأهداف المخطط لها مسبقاً."
+                },
+                {
+                    q: "5. What does a holistic view of an Information Security Management System (ISMS) based on ISO 27001 encompass?",
+                    options: ["Focusing exclusively on technical perimeter firewalls", "The interaction between three core elements: Processes, Technology, and Behavior (People)", "Hiring a single security developer", "Disconnecting all external APIs"],
+                    answer: 1,
+                    explanation: "الـ ISMS يعالج الأمان كمنظومة متكاملة تشمل البشر والإجراءات الإدارية جنباً إلى جنب مع الحلول التقنية."
+                },
+                {
+                    q: "6. How does adding 'Additional Test Objects' to the test scope help improve the maturity of an ISMS?",
+                    options: ["By increasing paper documentation", "By uncovering vulnerabilities in interconnected components (such as APIs or identity systems) that expand the overall attack surface", "By reducing the total number of test cases", "By stopping periodic system updates"],
+                    answer: 1,
+                    explanation: "أي نظام متصل بالـ SUT يمثل مسار هجوم محتمل؛ وفحصه يكشف ثغرات قد تغفل عنها خطة الاختبار الضيقة."
+                },
+                {
+                    q: "7. What is the main benefit of introducing 'Additional Test Approaches' (e.g., adding static analysis to dynamic black-box testing)?",
+                    options: ["Wasting team resources", "Discovering different types of hidden vulnerabilities that could not be detected using a single testing approach alone", "Replacing software developers", "Reducing software licensing fees"],
+                    answer: 1,
+                    explanation: "تنوع أساليب الفحص يكمل بعضه البعض ويكشف زوايا وثغرات لا تظهر بأسلوب واحد فقط."
+                },
+                {
+                    q: "8. Which techniques are cited as examples of 'Improving Test Coverage' to uncover unexpected behaviors or weak password hashes?",
+                    options: ["Manual random clicking", "Systematic Fuzzing and Rainbow Tables", "Reviewing UI colors only", "Rebooting the web server"],
+                    answer: 1,
+                    explanation: "أدوات الـ Fuzzing والـ Rainbow Tables تعمّق التغطية الاختبارية وتكشف نقاط ضعف دقيقة في النظام."
+                },
+                {
+                    q: "9. How can an STE objectively measure the effectiveness of 'Secure Coding Training' for developers?",
+                    options: ["By counting attendance hours only", "By conducting post-training exams and running security tests to measure a reduction in recurring Security Anti-patterns in the code", "By asking the manager for a subjective opinion", "By handing out participation certificates"],
+                    answer: 1,
+                    explanation: "القياس الموضوعي يعتمد على تقييم السلوك الفعلي وجودة الكود المنتج بعد التدريب وليس مجرد الحضور."
+                },
+                {
+                    q: "10. When using 'Phishing Simulations' as a KPI for employee security awareness, what indicates a successful awareness program?",
+                    options: ["An increase in employees clicking suspicious links", "A measurable decrease in the click-through rate when repeating the simulation under similar conditions after training", "Stopping all future awareness simulations", "Shutting down corporate email servers"],
+                    answer: 1,
+                    explanation: "انخفاض نسبة النقر من 30% إلى 10% مثلاً يوفر دليلاً رقمياً ملموساً على ارتفاع الوعي الأمني للموظفين."
+                }
+            ]
+
+        },
+                {
+            id: 8,
+            badge: "Chapter 8",
+            title: "Reporting Security Test Results & Vulnerability Analysis (توثيق النتائج وتحليل الثغرات)",
+            summary: "يركز هذا الفصل على صياغة تقارير اختبار الأمان بسرية تامة وفق مبدأ (Need-to-Know)، وآليات الإفصاح المسؤول عن الثغرات. كما يشرح خطوات تحليل نطاق الثغرة وتقييم مخاطرها، ويوضح الفارق الهندسي الحاسم بين إخفاء الثغرة مؤقتاً (Hiding) ومعالجتها من الجذور (Avoiding).",
+            youtubeLink: "https://youtube.com/watch?v=hlV9E6NhGbI&si=rx4GvXhKY7DBK5FW",
+                      questions: [
+                {
+                    q: "1. Why is documenting the 'Test Environment' and exact 'Test Data' essential in a failed security test report?",
+                    options: ["To increase the page count of the report", "To enable another engineer or developer to reproduce the exact steps and verify the vulnerability (Replicability)", "To hide vulnerability details from developers", "To calculate server electricity costs"],
+                    answer: 1,
+                    explanation: "توثيق البيئة والخطوات والبيانات يضمن إمكانية تكرار الاختبار وإثبات الثغرة بشكل قاطع أمام فريق التطوير."
+                },
+                {
+                    q: "2. What does the 'Need-to-Know Concept' require when distributing security test reports within an organization?",
+                    options: ["Publishing the full report to all company employees via email", "Tailoring report versions so each stakeholder receives only the level of detail required to perform their specific role without exposing the system to unnecessary risk", "Preventing developers from seeing vulnerability details", "Deleting the report immediately after reading"],
+                    answer: 1,
+                    explanation: "تقارير الأمان شديدة الحساسية؛ فالمطور يحتاج تفاصيل الكود لإصلاحها، بينما الإدارة تحتاج ملخص المخاطر لاتخاذ القرار."
+                },
+                {
+                    q: "3. Which behavior characterizes an ethical 'White Hat' hacker practicing 'Responsible Disclosure'?",
+                    options: ["Publishing vulnerability exploits online immediately to pressure the company", "Privately notifying the affected organization and allowing reasonable time to remediate the flaw before public disclosure", "Selling exploit details on the dark web", "Exploiting the vulnerability to exfiltrate customer data"],
+                    answer: 1,
+                    explanation: "الإفصاح المسؤول يهدف لحماية المستخدمين عبر منح المؤسسة فرصة لمعالجة الثغرة قبل استغلالها من المهاجمين."
+                },
+                {
+                    q: "4. What is the first analytical step an STE should take immediately after a security test fails and uncovers a vulnerability?",
+                    options: ["Shutting down all company servers immediately", "Determining the 'Vulnerability Scope' by testing similar inputs and boundary conditions to understand its full behavior", "Modifying the production source code directly", "Ignoring the flaw if it seems minor"],
+                    answer: 1,
+                    explanation: "تحديد النطاق يوضح ما إذا كانت الثغرة تقتصر على حالة واحدة أم تمتد لمدخلات وحالات أخرى أوسع."
+                },
+                {
+                    q: "5. Why must the 'Risk Likelihood' of exploiting a vulnerability be reassessed for the live production environment even after it was exploited in testing?",
+                    options: ["Because test environments are always faster than production", "Because production may have additional security controls (e.g., strict firewall rules) that reduce the practical likelihood of exploitation", "Because vulnerabilities automatically disappear in production", "To reduce the security team's workload"],
+                    answer: 1,
+                    explanation: "وجود ثغرة في بيئة الاختبار لا يعني بالضرورة سهولة استغلالها بنفس الدرجة في الإنتاج بسبب اختلاف الإعدادات والحماية."
+                },
+                {
+                    q: "6. Which two groups must collaborate closely with the STE to accurately evaluate the 'Business Impact' and production likelihood of a vulnerability?",
+                    options: ["UI designers and marketing staff", "Business Stakeholders and the Operations Team", "External customers and suppliers", "Hardware vendors only"],
+                    answer: 1,
+                    explanation: "أصحاب المصلحة يفهمون أهمية النظام للعمل التجاري، وفريق العمليات يفهم الإعدادات الحية للبيئة الإنتاجية."
+                },
+                {
+                    q: "7. What is meant by an organization's 'Risk Appetite' when deciding how to handle a high-risk vulnerability?",
+                    options: ["Developers' eagerness to write new features", "The amount and type of risk an organization is willing to accept or retain in pursuit of its business objectives", "The number of bugs a tester finds per day", "The budget allocated for testing tools"],
+                    answer: 1,
+                    explanation: "يحدد الـ Risk Appetite قرار الإدارة بين إيقاف النظام فوراً أو إبقائه قيد التشغيل مع المراقبة المكثفة."
+                },
+                {
+                    q: "8. Which of the following actions is an example of 'Hiding a Vulnerability' rather than 'Avoiding' it?",
+                    options: ["Rewriting the vulnerable source code function", "Implementing Firewall Traffic Blocking or Virtual Patching without modifying the underlying application code", "Permanently removing the flawed component from the codebase", "Upgrading the cryptographic algorithm in the source code"],
+                    answer: 1,
+                    explanation: "الإخفاء يمنع المهاجم من الوصول للثغرة مؤقتاً عبر طبقة خارجية، بينما تظل الثغرة الأصلية موجودة في الكود."
+                },
+                {
+                    q: "9. What is the key trade-off between 'Hiding a Vulnerability' and 'Avoiding a Vulnerability'?",
+                    options: ["Hiding takes years while avoiding takes seconds", "Hiding provides fast, temporary risk mitigation, whereas avoiding requires more time and cost to permanently eliminate the root cause in the code", "There is no difference in time or cost", "Avoiding does not require any retesting"],
+                    answer: 1,
+                    explanation: "لهذا السبب تلجأ الشركات أحياناً للإخفاء كحل طارئ سريع ريثما يجهز المطورون الإصلاح الجذري للكود."
+                },
+                {
+                    q: "10. Which two testing activities are mandatory after modifying code to fix a vulnerability before deploying the patch to production?",
+                    options: ["Performance testing and usability testing", "Confirmation Testing (to verify the flaw is fixed) and Regression Testing (to ensure no new issues were introduced)", "Port scanning and network sniffing only", "Initial requirements review"],
+                    answer: 1,
+                    explanation: "نحتاج للتأكد أولاً من نجاح الإصلاح (Confirmation)، وثانياً من عدم تسبب الإصلاح في مشاكل جديدة (Regression)."
+                }
+            ]
+
+        },
+                {
+            id: 9,
+            badge: "Chapter 9",
+            title: "Security Testing Tools (أدوات اختبار الأمان: SAST, DAST, IAST & SCA)",
+            summary: "يستعرض هذا الفصل التصنيفات الرئيسية لأدوات اختبار الأمان، والفرق الجوهري بين أدوات التحليل الثابت (SAST/SCA) والديناميكي (DAST/IAST). كما يوضح معايير اختيار الأداة المناسبة للمشروع، ويقارن بموضوعية بين مزايا وعيوب الأدوات مفتوحة المصدر والمغلقة.",
+            youtubeLink: "https://youtube.com/watch?v=V267pzlp2Kg&si=VX1ARjaJ7kNi8WI5",
+            questions: [
+                {
+                    q: "1. What is the fundamental prerequisite for executing 'Black-box Security Testing Tools'?",
+                    options: ["Full access to the application's source code", "Access to a running application or system in a production-like environment to interact with externally", "Detailed knowledge of internal database schemas", "Disabling all perimeter firewalls"],
+                    answer: 1,
+                    explanation: "أدوات الصندوق الأسود تتعامل مع النظام قيد التشغيل كصندوق مغلق دون الحاجة لمعرفة بنيته الداخلية."
+                },
+                {
+                    q: "2. Which category of security tools combines black-box and white-box characteristics, requiring limited internal knowledge alongside a running system?",
+                    options: ["White-box Tools", "Grey-box Tools", "Static Analysis Tools", "Network Sniffers"],
+                    answer: 1,
+                    explanation: "أدوات الصندوق الرمادي (Grey-box) تستفيد من المعلومات الداخلية المتاحة (مثل وثائق الـ API) أثناء التفاعل مع التطبيق الحي."
+                },
+                {
+                    q: "3. What is the core difference between SAST (Static Application Security Testing) and SCA (Software Composition Analysis)?",
+                    options: ["There is no difference", "SAST analyzes proprietary source code written by developers, whereas SCA analyzes third-party open-source dependencies against known CVE databases", "SCA only runs during runtime execution", "SAST is exclusively used for network routers"],
+                    answer: 1,
+                    explanation: "تكتشف أدوات SCA الثغرات المعروفة في الاعتماديات والمكتبات الجاهزة (Third-party dependencies)."
+                },
+                {
+                    q: "4. Why is performing static source code analysis significantly more challenging on 'Closed-source' systems compared to 'Open-source' systems?",
+                    options: ["Because closed-source systems never have vulnerabilities", "Due to lack of source code access, code obfuscation, or restrictive licensing agreements prohibiting static analysis", "Because they cannot connect to the internet", "Because they are written strictly in binary"],
+                    answer: 1,
+                    explanation: "غياب السورس كود والقيود القانونية والتقنية (مثل Obfuscation) تحد من قدرة أدوات التحليل الساكن."
+                },
+                {
+                    q: "5. How do IAST (Interactive Application Security Testing) tools detect vulnerabilities with high accuracy?",
+                    options: ["By scanning source code files offline on a developer's laptop", "By deploying an internal Agent inside the runtime environment to monitor internal execution while dynamic tests interact with the SUT", "By scanning external network ports only", "By reviewing requirements documents"],
+                    answer: 1,
+                    explanation: "الـ IAST هو هجين يجمع بين الرؤية الداخلية للكود والفحص الديناميكي الفعلي أثناء التشغيل (Runtime)."
+                },
+                {
+                    q: "6. What is the major risk of relying solely on DAST (Dynamic Application Security Testing) tools and assuming a clean report means 100% security?",
+                    options: ["Slow server boot times", "Falling into a 'False Sense of Security', as automated DAST tools do not reliably cover all vulnerability classes (e.g., full OWASP Top 10)", "Accidental database deletion", "Increased hardware maintenance costs"],
+                    answer: 1,
+                    explanation: "أدوات DAST تفحص مسارات هجوم محددة مسبقاً وقد تغفل عن ثغرات منطقية أو معقدة تتطلب فحصاً بشرياً متخصصاً."
+                },
+                {
+                    q: "7. What is a primary reason static analysis tools (SAST) frequently generate 'False Positives'?",
+                    options: ["Slow internet connection speeds", "Lack of runtime context; the tool may flag a theoretical flaw in a code path that is never actually executed in real-world scenarios", "Encrypted database connections", "Using strong administrator passwords"],
+                    answer: 1,
+                    explanation: "الفحص النظري للكود دون تشغيله يجعل الأداة عاجزة عن تمييز المسارات البرمجية غير القابلة للاستغلال عملياً."
+                },
+                {
+                    q: "8. What is a significant security advantage of using 'Open-source' security testing tools?",
+                    options: ["Guaranteed commercial SLA support contracts", "Ability to inspect and audit the tool's source code for hidden backdoors and customize it to fit the project context", "Zero programming skills required for customization", "Guaranteed lifetime updates by a single vendor"],
+                    answer: 1,
+                    explanation: "توفر الكود يتيح للمؤسسة فحص الأداة نفسها وتطويعها لتلائم بيئتها الخاصة."
+                },
+                {
+                    q: "9. Which of the following is a potential drawback of relying on 'Closed-source' (Commercial) security testing tools?",
+                    options: ["Easy modification of the tool's internal source code", "High licensing costs, limited customization capabilities, and the risk of Vendor Lock-in", "Complete absence of vendor technical support", "Public exposure of the tool's proprietary code"],
+                    answer: 1,
+                    explanation: "الأدوات التجارية توفر دعماً فنياً قوياً لكنها تفرض قيوداً مالية وتقنية تجعل الانتقال لمورد آخر صعباً."
+                },
+                {
+                    q: "10. What golden rule does the syllabus recommend when selecting security testing tools for an organization?",
+                    options: ["Always purchase the most expensive commercial tool available", "Select tools based on actual test objectives and project context, and avoid relying on a single tool vendor", "Use only one tool for all static and dynamic testing needs", "Never update tools once they are configured"],
+                    answer: 1,
+                    explanation: "الملاءمة للسياق وتنويع المصادر يضمنان تغطية أمنية شاملة وموضوعية دون الوقوع تحت رحمة أداة واحدة."
+                }
+            ]
+
+        }
+
+    ];
+//_________________________________________________________________________________________________________
+    
+    const container = document.getElementById('chaptersContainer');
+    let completedChapters = JSON.parse(localStorage.getItem('completedChapters')) || [];
+
+    function updateProgress() {
+        const total = chaptersData.length;
+        const completed = completedChapters.length;
+        const percent = Math.round((completed / total) * 100);
+        document.getElementById('progressBar').style.width = percent + '%';
+        document.getElementById('progressPercent').textContent = `${percent}% (${completed} من ${total})`;
+    }
+
+    function toggleComplete(chapterId) {
+        if (completedChapters.includes(chapterId)) {
+            completedChapters = completedChapters.filter(id => id !== chapterId);
+        } else {
+            completedChapters.push(chapterId);
+        }
+        localStorage.setItem('completedChapters', JSON.stringify(completedChapters));
+        updateProgress();
+    }
+
+    function toggleQuiz(chapterId) {
+        document.getElementById(`quiz-${chapterId}`).classList.toggle('active');
+    }
+
+    function checkAnswers(chapterId) {
+        const chapter = chaptersData.find(c => c.id === chapterId);
+        let score = 0;
+
+        chapter.questions.forEach((q, qIndex) => {
+            const selected = document.querySelector(`input[name="q-${chapterId}-${qIndex}"]:checked`);
+            const expEl = document.getElementById(`exp-${chapterId}-${qIndex}`);
+            expEl.style.display = 'block';
+
+            if (selected && parseInt(selected.value) === q.answer) {
+                score++;
+                expEl.style.color = 'var(--accent)';
+                expEl.textContent = `✅ إجابة صحيحة! ${q.explanation}`;
+            } else {
+                expEl.style.color = '#ef4444';
+                expEl.textContent = `❌ إجابة غير صحيحة. الصحيح: (${q.options[q.answer]}) — ${q.explanation}`;
+            }
+        });
+
+        const resultEl = document.getElementById(`result-${chapterId}`);
+        resultEl.style.display = 'block';
+        resultEl.style.background = 'rgba(14, 165, 233, 0.15)';
+        resultEl.textContent = `نتيجتك في هذا الفصل: ${score} من ${chapter.questions.length}`;
+    }
+
+    function renderChapters() {
+        container.innerHTML = '';
+        chaptersData.forEach(chapter => {
+            const isChecked = completedChapters.includes(chapter.id) ? 'checked' : '';
+            let questionsHTML = '';
+            
+            chapter.questions.forEach((q, qIndex) => {
+                let optionsHTML = '';
+                q.options.forEach((opt, oIndex) => {
+                    optionsHTML += `
+                        <label class="option-label">
+                            <input type="radio" name="q-${chapter.id}-${qIndex}" value="${oIndex}">
+                            <span>${opt}</span>
+                        </label>
+                    `;
+                });
+
+                questionsHTML += `
+                    <div class="question-box">
+                        <div class="question-text">${q.q}</div>
+                        <div class="options-list">${optionsHTML}</div>
+                        <div class="explanation" id="exp-${chapter.id}-${qIndex}"></div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML += `
+                <article class="chapter-card">
+                    <div class="card-header">
+                        <div>
+                            <span class="chapter-badge">${chapter.badge}</span>
+                            <h2 class="chapter-title">${chapter.title}</h2>
+                        </div>
+                        <label class="complete-label">
+                            <input type="checkbox" ${isChecked} onchange="toggleComplete(${chapter.id})">
+                            <span>تمت المذاكرة</span>
+                        </label>
+                    </div>
+                    <p class="chapter-summary">${chapter.summary}</p>
+                    <div class="card-actions">
+                        <a href="${chapter.youtubeLink}" target="_blank" class="btn btn-youtube">▶ مشاهدة الشرح على يوتيوب</a>
+                        <button class="btn btn-quiz" onclick="toggleQuiz(${chapter.id})">📝 اختبر نفسك (${chapter.questions.length} أسئلة)</button>
+                    </div>
+                    <div class="quiz-section" id="quiz-${chapter.id}">
+                        ${questionsHTML}
+                        <button class="btn btn-submit-quiz" onclick="checkAnswers(${chapter.id})">تصحيح الإجابات وعرض النتيجة</button>
+                        <div class="quiz-result" id="result-${chapter.id}"></div>
+                    </div>
+                </article>
+            `;
+        });
+        updateProgress();
+    }
+
+    renderChapters();
+</script>
+</body>
+</html>
+
